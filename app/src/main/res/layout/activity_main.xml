@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <pomis.app.materailplotview.Views.PercentageView
@@ -24,4 +25,8 @@
         android:layout_width="300dp"
         android:layout_height="50dp" ></pomis.app.materailplotview.Views.HorizontalScaleView>
 
+    <pomis.app.materailplotview.Views.BarPlotView
+        android:id="@+id/bpv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
