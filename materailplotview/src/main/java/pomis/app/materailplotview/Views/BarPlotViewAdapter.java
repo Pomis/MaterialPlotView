@@ -1,11 +1,15 @@
 package pomis.app.materailplotview.Views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +24,31 @@ import pomis.app.materailplotview.R;
 public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.ViewHolder> {
     private List list;
     private Context context;
+
     private Field height;
+    private Field name;
+
     private float maxHeight = 0;
     private int measuredPxHeight;
     private int measuredPxWidth;
-    private Field name;
-    private boolean fieldsSet = false;
     private float startFrom = 0;
 
-    public BarPlotViewAdapter(Context context, List list, int measuredPxHeight, int measuredPxWidth) {
+    @ColorInt
+    private int gradientStartColor;
+
+    @ColorInt
+    private int gradientEndColor;
+
+    public BarPlotViewAdapter(Context context,
+                              List list,
+                              int measuredPxHeight,
+                              int measuredPxWidth,
+                              TypedArray attributeSet) {
         this.context = context;
         this.list = list;
         this.measuredPxHeight = measuredPxHeight;
         this.measuredPxWidth = measuredPxWidth;
+        parseAttrs(attributeSet);
     }
 
     @NonNull
@@ -47,7 +63,6 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         Object o = list.get(position);
         try {
             fillFields(position, o);
-
             bindValues(holder, o, position);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -58,11 +73,24 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
     private void bindValues(ViewHolder holder, Object o, int position) throws IllegalAccessException {
         float bias = calculateBarPxHeight(height.getFloat(o));
         holder.rlBar.animate().yBy(bias).alpha(1).setDuration(500);
+
         holder.tvValue.animate().alpha(1).setDuration(500).setStartDelay(500).start();
         holder.tvValue.setText(String.valueOf(height.getFloat(o)));
         holder.tvTitle.setText(String.valueOf(name.get(o)));
 
-        holder.verticalBarGradient.setAlpha(((float)position / list.size()));
+        holder.tvTitleGradient.setText(String.valueOf(name.get(o)));
+        holder.tvTitleGradient.setAlpha(((float) position / list.size()));
+        holder.verticalBarGradient.setAlpha(((float) position / list.size()));
+
+        // colors
+        Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
+        DrawableCompat.setTint(drawable, gradientStartColor);
+
+        Drawable drawable2 = DrawableCompat.wrap(holder.verticalBarGradient.getBackground());
+        DrawableCompat.setTint(drawable2, gradientEndColor);
+
+        holder.tvTitle.setTextColor(gradientStartColor);
+        holder.tvTitleGradient.setTextColor(gradientEndColor);
 
     }
 
@@ -92,11 +120,22 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         return list.size();
     }
 
+    private void parseAttrs(TypedArray ta) {
+        try {
+            float barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
+            gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
+            gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
+        } finally {
+            ta.recycle();
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         View verticalBar;
         View verticalBarGradient;
         TextView tvValue;
         TextView tvTitle;
+        TextView tvTitleGradient;
         RelativeLayout rlBar;
 
         ViewHolder(View itemView) {
@@ -105,6 +144,7 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
             verticalBarGradient = itemView.findViewById(R.id.vertical_bar_gradient);
             tvValue = itemView.findViewById(R.id.tv_value);
             tvTitle = itemView.findViewById(R.id.tv_title);
+            tvTitleGradient = itemView.findViewById(R.id.tv_title_gradient);
             rlBar = itemView.findViewById(R.id.rl_bar);
         }
     }

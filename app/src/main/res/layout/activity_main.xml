@@ -27,6 +27,9 @@
 
     <pomis.app.materailplotview.Views.BarPlotView
         android:id="@+id/bpv"
+        app:gradient_end_color="@color/colorEnd"
+        app:gradient_start_color="@color/colorStart"
+        app:bar_width="34dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

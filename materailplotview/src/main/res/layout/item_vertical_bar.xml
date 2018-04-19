@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     >
 
+    <FrameLayout
+        android:id="@+id/fl_bar_container"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="match_parent">
+
+
     <RelativeLayout
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -45,13 +52,33 @@
 
     </RelativeLayout>
 
+    </FrameLayout>
+
+
     <TextView
         android:id="@+id/tv_title"
         android:text="title"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorWhite"
         android:layout_width="70dp"
+        android:layout_marginTop="-20dp"
         android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@+id/fl_bar_container"
         android:textSize="16dp"
+        android:minHeight="20dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_title_gradient"
+        android:text="title"
+        android:layout_alignParentBottom="true"
+        android:layout_width="70dp"
+        android:textColor="@color/colorPrimary"
+        android:alpha="0"
+        android:layout_marginTop="-20dp"
+        android:gravity="center"
+        android:layout_below="@+id/fl_bar_container"
+        android:textSize="16dp"
+        android:minHeight="20dp"
         android:layout_height="wrap_content" />
 </RelativeLayout>
