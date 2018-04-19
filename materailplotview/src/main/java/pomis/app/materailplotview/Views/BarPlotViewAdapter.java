@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +40,8 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
     @ColorInt
     private int gradientEndColor;
+
+    private float barWidth;
 
     public BarPlotViewAdapter(Context context,
                               List list,
@@ -82,6 +86,11 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         holder.tvTitleGradient.setAlpha(((float) position / list.size()));
         holder.verticalBarGradient.setAlpha(((float) position / list.size()));
 
+        ViewGroup.LayoutParams params = holder.verticalBar.getLayoutParams();
+        params.width = (int)barWidth;
+        holder.verticalBar.setLayoutParams(params);
+        holder.verticalBarGradient.setLayoutParams(params);
+
         // colors
         Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
         DrawableCompat.setTint(drawable, gradientStartColor);
@@ -91,6 +100,8 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
         holder.tvTitle.setTextColor(gradientStartColor);
         holder.tvTitleGradient.setTextColor(gradientEndColor);
+
+
 
     }
 
@@ -122,7 +133,7 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
     private void parseAttrs(TypedArray ta) {
         try {
-            float barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
+            barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
             gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
             gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
         } finally {
