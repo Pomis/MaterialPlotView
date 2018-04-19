@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <pomis.app.materailplotview.Views.PercentageView
+        android:id="@+id/pv"
+        android:layout_width="48dp"
+        android:textSize="15dp"
+        android:textColor="#007014"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:padding="2dp"
+        />
+
+    <pomis.app.materailplotview.Views.HorizontalScaleView
+        android:id="@+id/hs"
+        android:layout_width="300dp"
+        android:layout_height="50dp" ></pomis.app.materailplotview.Views.HorizontalScaleView>
+
+</LinearLayout>
