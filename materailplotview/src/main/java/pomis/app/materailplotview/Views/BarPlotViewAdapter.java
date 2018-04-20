@@ -124,7 +124,9 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
             if (field.isAnnotationPresent(BarName.class)) {
                 name = field;
             }
-            if (field.)
+            if (field.isAnnotationPresent(BarFill.class)) {
+                fill = field;
+            }
         }
     }
 
