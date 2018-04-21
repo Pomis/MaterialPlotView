@@ -24,6 +24,7 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
     private Field height;
     private Field name;
+    private Field fill;
 
     private float maxHeight = 0;
     private int measuredPxHeight;
@@ -124,6 +125,9 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
             }
             if (field.isAnnotationPresent(BarName.class)) {
                 name = field;
+            }
+            if (field.isAnnotationPresent(BarFill.class)) {
+                fill = field;
             }
         }
     }
