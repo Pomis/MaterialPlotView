@@ -2,19 +2,14 @@ package pomis.app.materailplotview.Views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,6 +30,8 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
     private int measuredPxWidth;
     private float startFrom = 0;
 
+    private RecyclerView mRecyclerView;
+
     @ColorInt
     private int gradientStartColor;
 
@@ -53,6 +50,7 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         this.measuredPxHeight = measuredPxHeight;
         this.measuredPxWidth = measuredPxWidth;
         parseAttrs(attributeSet);
+        //scrollableCheck();
     }
 
     @NonNull
@@ -105,6 +103,10 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
     }
 
+    private void calculateMargins(){
+
+    }
+
     private float calculateBarPxHeight(float h) throws IllegalAccessException {
         for (Object o : list) {
             if (height.getFloat(o) > maxHeight) {
@@ -138,6 +140,23 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
             gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
         } finally {
             ta.recycle();
+        }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+    }
+
+    public boolean scrollableCheck(RecyclerView recyclerView){
+        if(list.size()>5){
+            return true;
+        }else{
+            ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            recyclerView.setLayoutParams(layoutParams);
+            return false;
         }
     }
 
