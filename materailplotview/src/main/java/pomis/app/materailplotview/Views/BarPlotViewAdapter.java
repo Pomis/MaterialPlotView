@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.*;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -61,27 +62,17 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         holder.tvValue.setText(String.valueOf(model.height.getFloat(o)));
         holder.tvTitle.setText(String.valueOf(model.name.get(o)));
 
-        holder.tvTitleGradient.setText(String.valueOf(model.name.get(o)));
-        holder.tvTitleGradient.setAlpha(((float) position / list.size()));
-        holder.verticalBarGradient.setAlpha(((float) position / list.size()));
 
         ViewGroup.LayoutParams params = holder.verticalBar.getLayoutParams();
         params.width = (int)model.barWidth;
         holder.verticalBar.setLayoutParams(params);
-        holder.verticalBarGradient.setLayoutParams(params);
 
-        // colors
+        int color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, (float)position/list.size());
+
         Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
-        DrawableCompat.setTint(drawable, model.gradientStartColor);
+        DrawableCompat.setTint(drawable, color);
 
-        Drawable drawable2 = DrawableCompat.wrap(holder.verticalBarGradient.getBackground());
-        DrawableCompat.setTint(drawable2, model.gradientEndColor);
-
-        holder.tvTitle.setTextColor(model.gradientStartColor);
-        holder.tvTitleGradient.setTextColor(model.gradientEndColor);
-
-
-
+        holder.tvTitle.setTextColor(color);
     }
 
     @Override
@@ -110,19 +101,15 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View verticalBar;
-        View verticalBarGradient;
         TextView tvValue;
         TextView tvTitle;
-        TextView tvTitleGradient;
         RelativeLayout rlBar;
 
         ViewHolder(View itemView) {
             super(itemView);
             verticalBar = itemView.findViewById(R.id.vertical_bar);
-            verticalBarGradient = itemView.findViewById(R.id.vertical_bar_gradient);
             tvValue = itemView.findViewById(R.id.tv_value);
             tvTitle = itemView.findViewById(R.id.tv_title);
-            tvTitleGradient = itemView.findViewById(R.id.tv_title_gradient);
             rlBar = itemView.findViewById(R.id.rl_bar);
         }
     }

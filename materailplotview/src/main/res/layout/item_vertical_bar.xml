@@ -26,15 +26,6 @@
                 android:background="@drawable/shape_rounded_bar"
                 android:orientation="vertical" />
 
-            <View
-                android:id="@+id/vertical_bar_gradient"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:alpha="0"
-                android:background="@drawable/shape_rounded_bar_gradient"
-                android:orientation="vertical" />
-
             <TextView
                 android:id="@+id/tv_value"
                 android:layout_width="match_parent"
@@ -65,19 +56,5 @@
         android:minHeight="20dp"
         android:text="title"
         android:textColor="@color/colorAccent"
-        android:textSize="16dp" />
-
-    <TextView
-        android:id="@+id/tv_title_gradient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/fl_bar_container"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-20dp"
-        android:alpha="0"
-        android:minHeight="20dp"
-        android:text="title"
-        android:textColor="@color/colorPrimary"
         android:textSize="16dp" />
 </RelativeLayout>
