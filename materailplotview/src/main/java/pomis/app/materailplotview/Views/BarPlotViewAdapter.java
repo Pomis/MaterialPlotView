@@ -21,36 +21,17 @@ import pomis.app.materailplotview.R;
 public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.ViewHolder> {
     private List list;
     private Context context;
-
-    private Field height;
-    private Field name;
-    private Field fill;
-
-    private float maxHeight = 0;
-    private int measuredPxHeight;
-    private int measuredPxWidth;
-    private float startFrom = 0;
+    private BarPlotModel model;
 
     private RecyclerView mRecyclerView;
 
-    @ColorInt
-    private int gradientStartColor;
 
-    @ColorInt
-    private int gradientEndColor;
-
-    private float barWidth;
-
-    public BarPlotViewAdapter(Context context,
-                              List list,
-                              int measuredPxHeight,
-                              int measuredPxWidth,
-                              TypedArray attributeSet) {
+    BarPlotViewAdapter(Context context,
+                       List list,
+                       BarPlotModel model) {
         this.context = context;
         this.list = list;
-        this.measuredPxHeight = measuredPxHeight;
-        this.measuredPxWidth = measuredPxWidth;
-        parseAttrs(attributeSet);
+        this.model = model;
         //scrollableCheck();
     }
 
@@ -65,7 +46,6 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Object o = list.get(position);
         try {
-            fillFields(position, o);
             bindValues(holder, o, position);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -74,62 +54,34 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
     }
 
     private void bindValues(ViewHolder holder, Object o, int position) throws IllegalAccessException {
-        float bias = calculateBarPxHeight(height.getFloat(o));
+        float bias = model.getBarPxHeight(o);
         holder.rlBar.animate().yBy(bias).alpha(1).setDuration(500);
 
         holder.tvValue.animate().alpha(1).setDuration(500).setStartDelay(500).start();
-        holder.tvValue.setText(String.valueOf(height.getFloat(o)));
-        holder.tvTitle.setText(String.valueOf(name.get(o)));
+        holder.tvValue.setText(String.valueOf(model.height.getFloat(o)));
+        holder.tvTitle.setText(String.valueOf(model.name.get(o)));
 
-        holder.tvTitleGradient.setText(String.valueOf(name.get(o)));
+        holder.tvTitleGradient.setText(String.valueOf(model.name.get(o)));
         holder.tvTitleGradient.setAlpha(((float) position / list.size()));
         holder.verticalBarGradient.setAlpha(((float) position / list.size()));
 
         ViewGroup.LayoutParams params = holder.verticalBar.getLayoutParams();
-        params.width = (int)barWidth;
+        params.width = (int)model.barWidth;
         holder.verticalBar.setLayoutParams(params);
         holder.verticalBarGradient.setLayoutParams(params);
 
         // colors
         Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
-        DrawableCompat.setTint(drawable, gradientStartColor);
+        DrawableCompat.setTint(drawable, model.gradientStartColor);
 
         Drawable drawable2 = DrawableCompat.wrap(holder.verticalBarGradient.getBackground());
-        DrawableCompat.setTint(drawable2, gradientEndColor);
+        DrawableCompat.setTint(drawable2, model.gradientEndColor);
 
-        holder.tvTitle.setTextColor(gradientStartColor);
-        holder.tvTitleGradient.setTextColor(gradientEndColor);
+        holder.tvTitle.setTextColor(model.gradientStartColor);
+        holder.tvTitleGradient.setTextColor(model.gradientEndColor);
 
 
 
-    }
-
-    private void calculateMargins(){
-
-    }
-
-    private float calculateBarPxHeight(float h) throws IllegalAccessException {
-        for (Object o : list) {
-            if (height.getFloat(o) > maxHeight) {
-                maxHeight = height.getFloat(o);
-            }
-        }
-        return (float) measuredPxHeight * (1 - (h / maxHeight));
-    }
-
-    private void fillFields(int position, Object o) throws IllegalAccessException {
-        for (Field field : o.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            if (field.isAnnotationPresent(BarHeight.class)) {
-                height = field;
-            }
-            if (field.isAnnotationPresent(BarName.class)) {
-                name = field;
-            }
-            if (field.isAnnotationPresent(BarFill.class)) {
-                fill = field;
-            }
-        }
     }
 
     @Override
@@ -137,15 +89,7 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         return list.size();
     }
 
-    private void parseAttrs(TypedArray ta) {
-        try {
-            barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
-            gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
-            gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
-        } finally {
-            ta.recycle();
-        }
-    }
+
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {

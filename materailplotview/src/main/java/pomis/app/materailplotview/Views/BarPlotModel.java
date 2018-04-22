@@ -1,19 +1,23 @@
 package pomis.app.materailplotview.Views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
+import android.util.AttributeSet;
 
 import java.lang.reflect.Field;
 import java.util.List;
+
+import pomis.app.materailplotview.R;
 
 /**
  * Created by romanismagilov on 21.04.18.
  */
 
 public class BarPlotModel {
-    private Field height;
-    private Field name;
-    private Field fill;
+    Field height;
+    Field name;
+    Field fill;
 
     private float maxHeight = 0;
     private int measuredPxHeight;
@@ -21,10 +25,65 @@ public class BarPlotModel {
     private float startFrom = 0;
 
     @ColorInt
-    private int gradientStartColor;
+    int gradientStartColor;
 
     @ColorInt
-    private int gradientEndColor;
+    int gradientEndColor;
 
-    private float barWidth;
+    float barWidth;
+    private List list;
+
+
+    void setList(List list) {
+        this.list = list;
+
+        if (list != null && list.size() > 0) {
+            Object o = list.get(0);
+            try {
+                fillFields(o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void fillFields(Object o) throws IllegalAccessException {
+        for (Field field : o.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            if (field.isAnnotationPresent(BarHeight.class)) {
+                height = field;
+            }
+            if (field.isAnnotationPresent(BarName.class)) {
+                name = field;
+            }
+            if (field.isAnnotationPresent(BarFill.class)) {
+                fill = field;
+            }
+        }
+    }
+
+    void setCustomAttributes(Context context, TypedArray ta) {
+        try {
+            barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
+            gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
+            gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
+        } finally {
+            ta.recycle();
+        }
+    }
+
+    float getBarPxHeight(Object object) throws IllegalAccessException {
+        for (Object o : list) {
+            if (height.getFloat(o) > maxHeight) {
+                maxHeight = height.getFloat(o);
+            }
+        }
+        return (float) measuredPxHeight * (1 - (height.getFloat(object) / maxHeight));
+    }
+
+    public void setMeasuredDimensions(int measuredWidth, int measuredHeight) {
+        this.measuredPxHeight = measuredHeight;
+        this.measuredPxWidth = measuredWidth;
+    }
 }

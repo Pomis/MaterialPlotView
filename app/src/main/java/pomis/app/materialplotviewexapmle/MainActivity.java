@@ -31,9 +31,9 @@ public class MainActivity extends Activity {
         testList.add(new ExampleModel("title one", 10f));
         testList.add(new ExampleModel("title two", 16f));
         testList.add(new ExampleModel("titlda", 2f));
-        /*testList.add(new ExampleModel("xyu", 5f));
+        testList.add(new ExampleModel("xyu", 5f));
         testList.add(new ExampleModel("gowno", 4.3f));
-        testList.add(new ExampleModel("nameie", 10f));*/
+        testList.add(new ExampleModel("nameie", 10f));
 
 
         barPlotView.source(testList);
