@@ -3,7 +3,6 @@ package pomis.app.materailplotview.Views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
-import android.util.AttributeSet;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -20,9 +19,9 @@ public class BarPlotModel {
     Field fill;
 
     private float maxHeight = 0;
-    private int measuredPxHeight;
-    private int measuredPxWidth;
-    private float startFrom = 0;
+    int measuredPxHeight;
+    int measuredPxWidth;
+    float startFrom = 0;
 
     @ColorInt
     int gradientStartColor;
@@ -46,6 +45,10 @@ public class BarPlotModel {
             }
         }
 
+    }
+
+    int calculateMargins() {
+        return (int) (((float)measuredPxWidth / list.size()) - barWidth)/2;
     }
 
     private void fillFields(Object o) throws IllegalAccessException {

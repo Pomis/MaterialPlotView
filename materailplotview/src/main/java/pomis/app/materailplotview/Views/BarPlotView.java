@@ -40,16 +40,10 @@ public class BarPlotView extends RecyclerView {
             public void onGlobalLayout() {
                 if (getAdapter() == null) {
                     model.setMeasuredDimensions(BarPlotView.this.getMeasuredWidth(),
-                                                BarPlotView.this.getMeasuredHeight());
+                            BarPlotView.this.getMeasuredHeight());
                     final BarPlotViewAdapter adapter = new BarPlotViewAdapter(getContext(), list, model);
                     BarPlotView.this.setAdapter(adapter);
-                    BarPlotView.this.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false) {
-
-                        @Override
-                        public boolean canScrollHorizontally() {
-                            return adapter.scrollableCheck(BarPlotView.this);
-                        }
-                    });
+                    BarPlotView.this.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 }
 
             }

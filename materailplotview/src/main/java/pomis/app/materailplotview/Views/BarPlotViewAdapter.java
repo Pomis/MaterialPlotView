@@ -64,15 +64,23 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
 
         ViewGroup.LayoutParams params = holder.verticalBar.getLayoutParams();
-        params.width = (int)model.barWidth;
+        params.width = (int) model.barWidth;
         holder.verticalBar.setLayoutParams(params);
 
-        int color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, (float)position/list.size());
+        int color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, (float) position / list.size());
 
         Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
         DrawableCompat.setTint(drawable, color);
 
         holder.tvTitle.setTextColor(color);
+
+        if (list.size() <= 5) {
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.rlBar.getLayoutParams();
+            marginParams.leftMargin = model.calculateMargins();
+            marginParams.rightMargin = model.calculateMargins();
+            holder.rlBar.setLayoutParams(marginParams);
+        }
+
     }
 
     @Override
@@ -81,23 +89,22 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
     }
 
 
-
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
 
     }
 
-    public boolean scrollableCheck(RecyclerView recyclerView){
-        if(list.size()>5){
-            return true;
-        }else{
-            ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            recyclerView.setLayoutParams(layoutParams);
-            return false;
-        }
-    }
+//    public boolean scrollableCheck(RecyclerView recyclerView) {
+//        if (list.size() > 5) {
+//            return true;
+//        } else {
+//            ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
+//            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//            recyclerView.setLayoutParams(layoutParams);
+//            return true;
+//        }
+//    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View verticalBar;
