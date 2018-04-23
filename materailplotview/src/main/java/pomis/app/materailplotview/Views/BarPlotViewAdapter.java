@@ -33,7 +33,6 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         this.context = context;
         this.list = list;
         this.model = model;
-        //scrollableCheck();
     }
 
     @NonNull
@@ -79,15 +78,13 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
 
     private void colorizeBar(ViewHolder holder, Object o, int position) {
         int color = 0;
-        Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
-
         switch (model.fillType) {
             case BarPlotModel.FillType.HORIZONTAL_GRADIENT:
                 color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, (float) position / list.size());
                 break;
 
             case BarPlotModel.FillType.RANDOM_COLOR:
-
+                color = model.colors[position];
                 break;
 
             case BarPlotModel.FillType.VALUE_DEPENDENT:
@@ -99,12 +96,14 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
                 }
                 break;
 
-            case BarPlotModel.FillType.VERTICAL_GRADIENT:
-                break;
+//            case BarPlotModel.FillType.VERTICAL_GRADIENT:
+//                break;
         }
 
+        Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
         DrawableCompat.setTint(drawable, color);
         holder.tvTitle.setTextColor(color);
+
     }
 
     private float getMaxFillValue() throws IllegalAccessException {

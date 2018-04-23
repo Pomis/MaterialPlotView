@@ -6,7 +6,7 @@
         <attr name="bar_width" format="dimension"/>
         <attr name="fill_type" format="enum">
             <enum name="horizontal_gradient" value="0"/>
-            <enum name="vertical_gradient" value="1"/>
+            <!--<enum name="vertical_gradient" value="1"/>-->
             <enum name="value_dependent" value="2"/>
             <enum name="random_colors" value="3"/>
         </attr>

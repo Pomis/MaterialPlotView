@@ -25,6 +25,7 @@ public class BarPlotModel {
     Field fill;
 
     private List list;
+    public int[] colors = {-41241, -78425, -342343, -65342, -98453, -822355 };
 
     private float maxHeight = 0;
     int measuredPxHeight;

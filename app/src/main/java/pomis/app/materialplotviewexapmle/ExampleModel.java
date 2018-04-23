@@ -9,10 +9,9 @@ public class ExampleModel {
     @BarName
     String name;
 
-    @BarHeight
+    @BarHeight @BarFill
     float height;
 
-    @BarFill
     float fill;
 
     public ExampleModel(String name, float height, float fill) {

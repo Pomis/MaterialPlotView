@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
         testList.add(new ExampleModel("title two", 16f,21f));
         testList.add(new ExampleModel("titlda", 2f,4f));
         testList.add(new ExampleModel("xyu", 5f, 43f));
-//        testList.add(new ExampleModel("gowno", 4.3f));
+        testList.add(new ExampleModel("gowno", 4.3f, 4f));
         testList.add(new ExampleModel("nameie", 10f, 55f));
 
 
