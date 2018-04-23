@@ -14,24 +14,26 @@ import pomis.app.materailplotview.R;
  */
 
 public class BarPlotModel {
+    static public class FillType {
+        static final public int HORIZONTAL_GRADIENT = 0;
+        static final public int VERTICAL_GRADIENT = 1;
+        static final public int VALUE_DEPENDENT = 2;
+        static final public int RANDOM_COLOR = 3;
+    }
     Field height;
     Field name;
     Field fill;
+
+    private List list;
 
     private float maxHeight = 0;
     int measuredPxHeight;
     int measuredPxWidth;
     float startFrom = 0;
-
-    @ColorInt
-    int gradientStartColor;
-
-    @ColorInt
-    int gradientEndColor;
-
+    @ColorInt int gradientStartColor;
+    @ColorInt int gradientEndColor;
     float barWidth;
-    private List list;
-
+    int fillType;
 
     void setList(List list) {
         this.list = list;
@@ -71,6 +73,7 @@ public class BarPlotModel {
             barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
             gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
             gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
+            fillType = ta.getInt(R.styleable.BarPlotView_fill_type, FillType.HORIZONTAL_GRADIENT);
         } finally {
             ta.recycle();
         }

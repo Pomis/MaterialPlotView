@@ -66,13 +66,7 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
         ViewGroup.LayoutParams params = holder.verticalBar.getLayoutParams();
         params.width = (int) model.barWidth;
         holder.verticalBar.setLayoutParams(params);
-
-        int color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, (float) position / list.size());
-
-        Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
-        DrawableCompat.setTint(drawable, color);
-
-        holder.tvTitle.setTextColor(color);
+        colorizeBar(holder, o, position);
 
         if (list.size() <= 5) {
             ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.rlBar.getLayoutParams();
@@ -81,6 +75,46 @@ public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.
             holder.rlBar.setLayoutParams(marginParams);
         }
 
+    }
+
+    private void colorizeBar(ViewHolder holder, Object o, int position) {
+        int color = 0;
+        Drawable drawable = DrawableCompat.wrap(holder.verticalBar.getBackground());
+
+        switch (model.fillType) {
+            case BarPlotModel.FillType.HORIZONTAL_GRADIENT:
+                color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, (float) position / list.size());
+                break;
+
+            case BarPlotModel.FillType.RANDOM_COLOR:
+
+                break;
+
+            case BarPlotModel.FillType.VALUE_DEPENDENT:
+                try {
+                    float value = model.fill.getFloat(o);
+                    color = ColorUtils.blendARGB(model.gradientStartColor, model.gradientEndColor, value / getMaxFillValue());
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case BarPlotModel.FillType.VERTICAL_GRADIENT:
+                break;
+        }
+
+        DrawableCompat.setTint(drawable, color);
+        holder.tvTitle.setTextColor(color);
+    }
+
+    private float getMaxFillValue() throws IllegalAccessException {
+        float max = model.fill.getFloat(list.get(0));
+        for (Object o : list) {
+            if (model.fill.getFloat(o) > max) {
+                max = model.fill.getFloat(o);
+            }
+        }
+        return max;
     }
 
     @Override
