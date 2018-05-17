@@ -66,7 +66,7 @@ public class LineChartView extends View {
                 wallpath.lineTo(pointEnd.x, pointEnd.y);
                 canvas.drawLine(pointStart.x, pointStart.y, pointEnd.x, pointEnd.y, accentPaint);
             }
-            wallpath.lineTo(getWidth(), getHeight());
+            wallpath.lineTo(model.getList().get(model.getList().size() - 1).x, getHeight());
 
             canvas.drawPath(wallpath, fillPaint);
 
