@@ -25,6 +25,11 @@
         android:layout_width="300dp"
         android:layout_height="50dp" />
 
+    <pomis.app.materailplotview.Views.LineChartView
+        android:id="@+id/lcv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
     <pomis.app.materailplotview.Views.BarPlotView
         android:id="@+id/bpv"
         app:gradient_end_color="@color/colorEnd"
