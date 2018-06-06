@@ -61,11 +61,14 @@ class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.ViewHol
         holder.tvValue.setText(String.valueOf(model.height.getFloat(o)));
         holder.tvTitle.setText(String.valueOf(model.name.get(o)));
 
+        holder.tvValue.setTextSize(model.fontSize);
+        holder.tvTitle.setTextSize(model.fontSize);
 
         ViewGroup.LayoutParams params = holder.verticalBar.getLayoutParams();
         params.width = (int) model.barWidth;
         holder.verticalBar.setLayoutParams(params);
         colorizeBar(holder, o, position);
+
 
         if (list.size() <= 5) {
             ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.rlBar.getLayoutParams();

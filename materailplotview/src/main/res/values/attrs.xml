@@ -16,5 +16,6 @@
             <enum name="rectangle" value="1"/>
             <enum name="irregularly_rounded" value="2"/>
         </attr>
+
     </declare-styleable>
 </resources>
