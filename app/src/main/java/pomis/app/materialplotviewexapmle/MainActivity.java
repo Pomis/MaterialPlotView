@@ -33,10 +33,10 @@ public class MainActivity extends Activity {
         ArrayList<ExampleModel> testList = new ArrayList<>();
         testList.add(new ExampleModel("title one", 10f, 34f));
         testList.add(new ExampleModel("title two", 16f,21f));
-        testList.add(new ExampleModel("titlda", 2f,4f));
-        testList.add(new ExampleModel("xyu", 5f, 43f));
+        testList.add(new ExampleModel("titlda", 2.4f,4f));
+        testList.add(new ExampleModel("xyu", 7f, 43f));
         testList.add(new ExampleModel("gowno", 4.3f, 4f));
-        testList.add(new ExampleModel("nameie", 10f, 55f));
+//        testList.add(new ExampleModel("nameie", 10f, 55f));
         barPlotView.source(testList);
 
         ArrayList<GraphModel> models = new ArrayList<>();

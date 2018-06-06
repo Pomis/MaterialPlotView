@@ -15,28 +15,36 @@ import pomis.app.materailplotview.R;
 
 class BarPlotModel {
     static public class FillType {
-
         static final public int HORIZONTAL_GRADIENT = 0;
         static final public int VERTICAL_GRADIENT = 1;
         static final public int VALUE_DEPENDENT = 2;
         static final public int RANDOM_COLOR = 3;
     }
+
+    static public class BarStyle {
+        static final public int ROUNDED = 0;
+        static final public int RECTANGLE = 1;
+        static final public int IRREGULARY_ROUNDED = 2;
+    }
+
     Field height;
     Field name;
     Field fill;
 
     private List list;
     public int[] colors = {-41241, -78425, -342343, -65342, -98453, -822355 };
+    float fontSize = 0;
 
     private float maxHeight = 0;
-    public float fontSize = 0;
     int measuredPxHeight;
     int measuredPxWidth;
     float startFrom = 0;
     @ColorInt int gradientStartColor;
     @ColorInt int gradientEndColor;
     float barWidth;
+
     int fillType;
+    int barStyle;
 
     void setList(List list) {
         this.list = list;
@@ -74,11 +82,15 @@ class BarPlotModel {
     void setCustomAttributes(Context context, TypedArray ta) {
         try {
             barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
-            gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
-            gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
+            gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color,
+                    context.getResources().getColor(R.color.colorAccent));
+            gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color,
+                    context.getResources().getColor(R.color.colorPrimary));
             fillType = ta.getInt(R.styleable.BarPlotView_fill_type, FillType.HORIZONTAL_GRADIENT);
+            barStyle = ta.getInt(R.styleable.BarPlotView_bar_style, BarStyle.ROUNDED);
             barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
             fontSize = ta.getDimension(R.styleable.BarPlotView_font_size, 20);
+
 
         } finally {
             ta.recycle();

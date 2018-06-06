@@ -34,8 +34,10 @@
         android:id="@+id/bpv"
         app:gradient_end_color="@color/colorEnd"
         app:gradient_start_color="@color/colorStart"
-        app:fill_type="random_colors"
+
+        app:font_size="12dp"
+        app:bar_style="irregularly_rounded"
         app:bar_width="48dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>
