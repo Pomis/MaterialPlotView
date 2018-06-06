@@ -11,5 +11,10 @@
             <enum name="random_colors" value="3"/>
         </attr>
         <attr name="font_size" format="dimension"/>
+        <attr name="bar_style" format="enum">
+            <enum name="rounded" value="0"/>
+            <enum name="rectangle" value="1"/>
+            <enum name="irregularly_rounded" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

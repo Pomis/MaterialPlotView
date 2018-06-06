@@ -13,7 +13,7 @@ import pomis.app.materailplotview.R;
  * Created by romanismagilov on 21.04.18.
  */
 
-public class BarPlotModel {
+class BarPlotModel {
     static public class FillType {
         static final public int HORIZONTAL_GRADIENT = 0;
         static final public int VERTICAL_GRADIENT = 1;

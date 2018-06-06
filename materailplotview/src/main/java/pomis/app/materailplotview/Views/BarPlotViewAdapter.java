@@ -19,7 +19,7 @@ import java.util.List;
 
 import pomis.app.materailplotview.R;
 
-public class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.ViewHolder> {
+class BarPlotViewAdapter extends RecyclerView.Adapter<BarPlotViewAdapter.ViewHolder> {
     private List list;
     private Context context;
     private BarPlotModel model;

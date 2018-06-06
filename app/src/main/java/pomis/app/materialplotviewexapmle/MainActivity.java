@@ -8,12 +8,14 @@ import java.util.ArrayList;
 
 import pomis.app.materailplotview.Views.BarPlotView;
 import pomis.app.materailplotview.Views.HorizontalScaleView;
+import pomis.app.materailplotview.Views.LineChartView;
 import pomis.app.materailplotview.Views.PercentageView;
 
 public class MainActivity extends Activity {
     PercentageView pv;
     HorizontalScaleView hs;
     BarPlotView barPlotView;
+    LineChartView lcv;
 
 
     @Override
@@ -22,6 +24,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         pv = findViewById(R.id.pv);
         hs = findViewById(R.id.hs);
+        lcv = findViewById(R.id.lcv);
         barPlotView = findViewById(R.id.bpv);
 
         pv.setPercentage(57);
@@ -34,9 +37,21 @@ public class MainActivity extends Activity {
         testList.add(new ExampleModel("xyu", 5f, 43f));
         testList.add(new ExampleModel("gowno", 4.3f, 4f));
         testList.add(new ExampleModel("nameie", 10f, 55f));
-
-
         barPlotView.source(testList);
+
+        ArrayList<GraphModel> models = new ArrayList<>();
+        models.add(new GraphModel(12, 15));
+        models.add(new GraphModel(15, 35));
+        models.add(new GraphModel(16, 66));
+        models.add(new GraphModel(18, 78));
+        models.add(new GraphModel(19, 81));
+        models.add(new GraphModel(22, 98));
+        models.add(new GraphModel(23, 66));
+        models.add(new GraphModel(25, 44));
+        models.add(new GraphModel(26, 22));
+        models.add(new GraphModel(27, 53));
+
+        lcv.source(models);
     }
 
     @Override
