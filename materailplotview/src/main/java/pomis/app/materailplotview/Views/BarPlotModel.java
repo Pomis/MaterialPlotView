@@ -75,6 +75,8 @@ public class BarPlotModel {
             gradientStartColor = ta.getColor(R.styleable.BarPlotView_gradient_start_color, context.getResources().getColor(R.color.colorAccent));
             gradientEndColor = ta.getColor(R.styleable.BarPlotView_gradient_end_color, context.getResources().getColor(R.color.colorPrimary));
             fillType = ta.getInt(R.styleable.BarPlotView_fill_type, FillType.HORIZONTAL_GRADIENT);
+            barWidth = ta.getDimension(R.styleable.BarPlotView_bar_width, 20);
+
         } finally {
             ta.recycle();
         }

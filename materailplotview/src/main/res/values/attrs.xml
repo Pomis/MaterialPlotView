@@ -10,5 +10,6 @@
             <enum name="value_dependent" value="2"/>
             <enum name="random_colors" value="3"/>
         </attr>
+        <attr name="font_size" format="dimension"/>
     </declare-styleable>
 </resources>

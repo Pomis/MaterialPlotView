@@ -42,6 +42,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        new TestClass("kak").someMethodUsingField();
+    }
 
+    class TestClass{
+        private String field;
+
+        public TestClass(String field) {
+            this.field = field;
+        }
+
+        public String getField() {return field;}
+
+        public String someMethodUsingField() {
+            return field.replace("a", "b");
+        }
     }
 }
