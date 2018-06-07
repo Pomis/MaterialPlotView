@@ -10,15 +10,14 @@
     <pomis.app.materailplotview.Views.PercentageView
         android:id="@+id/pv"
         android:layout_width="48dp"
-        android:textSize="15dp"
-        android:textColor="#007014"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_margin="12dp"
         android:gravity="center"
         android:padding="2dp"
-        />
+        android:textColor="#007014"
+        android:textSize="15dp" />
 
     <pomis.app.materailplotview.Views.HorizontalScaleView
         android:id="@+id/hs"
@@ -32,12 +31,11 @@
 
     <pomis.app.materailplotview.Views.BarPlotView
         android:id="@+id/bpv"
-        app:gradient_end_color="@color/colorEnd"
-        app:gradient_start_color="@color/colorStart"
-
-        app:font_size="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:bar_style="irregularly_rounded"
         app:bar_width="48dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:font_size="12dp"
+        app:gradient_end_color="@color/colorEnd"
+        app:gradient_start_color="@color/colorStart" />
 </LinearLayout>

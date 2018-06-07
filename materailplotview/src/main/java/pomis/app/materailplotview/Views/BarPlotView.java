@@ -3,6 +3,7 @@ package pomis.app.materailplotview.Views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.databinding.ObservableList;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,13 @@ public class BarPlotView extends RecyclerView {
         return this;
     }
 
+    public <T> BarPlotView observe(ObservableList<T> list) {
+        this.list = list;
+        this.model.setObservableList(list);
+        initAdapter();
+        return this;
+    }
+
 
     void initAdapter() {
         this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -43,6 +51,7 @@ public class BarPlotView extends RecyclerView {
                             BarPlotView.this.getMeasuredHeight());
                     final BarPlotViewAdapter adapter = new BarPlotViewAdapter(getContext(), list, model);
                     BarPlotView.this.setAdapter(adapter);
+                    model.adapter = adapter;
                     BarPlotView.this.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 }
 

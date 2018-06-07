@@ -2,10 +2,13 @@ package pomis.app.materailplotview.Views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.databinding.ObservableList;
 import android.support.annotation.ColorInt;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Observable;
 
 import pomis.app.materailplotview.R;
 
@@ -33,6 +36,7 @@ class BarPlotModel {
 
     private List list;
     public int[] colors = {-41241, -78425, -342343, -65342, -98453, -822355 };
+    BarPlotViewAdapter adapter;
     float fontSize = 0;
 
     private float maxHeight = 0;
@@ -46,6 +50,7 @@ class BarPlotModel {
     int fillType;
     int barStyle;
 
+
     void setList(List list) {
         this.list = list;
 
@@ -58,6 +63,44 @@ class BarPlotModel {
             }
         }
 
+    }
+
+    void setObservableList(ObservableList list) {
+        setList(list);
+
+        list.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList>() {
+            @Override
+            public void onChanged(ObservableList sender) {
+                updateAdapter();
+            }
+
+            @Override
+            public void onItemRangeChanged(ObservableList sender, int positionStart, int itemCount) {
+                updateAdapter();
+            }
+
+            @Override
+            public void onItemRangeInserted(ObservableList sender, int positionStart, int itemCount) {
+                updateAdapter();
+            }
+
+            @Override
+            public void onItemRangeMoved(ObservableList sender, int fromPosition, int toPosition, int itemCount) {
+                updateAdapter();
+            }
+
+            @Override
+            public void onItemRangeRemoved(ObservableList sender, int positionStart, int itemCount) {
+                updateAdapter();
+            }
+        });
+    }
+
+    private void updateAdapter() {
+        if (adapter!=null) {
+            adapter.notifyDataSetChanged();
+            Log.d("KEK", "UPDATENG");
+        }
     }
 
     int calculateMargins() {

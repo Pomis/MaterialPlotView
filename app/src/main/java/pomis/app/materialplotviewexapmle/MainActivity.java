@@ -1,8 +1,12 @@
 package pomis.app.materialplotviewexapmle;
 
 import android.app.Activity;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,7 @@ public class MainActivity extends Activity {
     BarPlotView barPlotView;
     LineChartView lcv;
 
+    ArrayList<ExampleModel> testList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,16 +35,16 @@ public class MainActivity extends Activity {
         pv.setPercentage(57);
         hs.setPercentage(0.25f);
 
-        ArrayList<ExampleModel> testList = new ArrayList<>();
-        testList.add(new ExampleModel("title one", 10f, 34f));
-        testList.add(new ExampleModel("title two", 16f,21f));
-        testList.add(new ExampleModel("titlda", 2.4f,4f));
-        testList.add(new ExampleModel("xyu", 7f, 43f));
-        testList.add(new ExampleModel("gowno", 4.3f, 4f));
-//        testList.add(new ExampleModel("nameie", 10f, 55f));
+        testList.add(new ExampleModel("name one", 5.6f, 34f));
+        testList.add(new ExampleModel("arbuz", 10.4f, 55f));
+        testList.add(new ExampleModel("name two", 16.1f, 21f));
+        testList.add(new ExampleModel("titlie", 2.4f, 4f));
+        testList.add(new ExampleModel("test", 7f, 43f));
+
         barPlotView.source(testList);
 
         ArrayList<GraphModel> models = new ArrayList<>();
+
         models.add(new GraphModel(12, 15));
         models.add(new GraphModel(15, 35));
         models.add(new GraphModel(16, 66));
@@ -60,14 +65,16 @@ public class MainActivity extends Activity {
         new TestClass("kak").someMethodUsingField();
     }
 
-    class TestClass{
+    class TestClass {
         private String field;
 
         public TestClass(String field) {
             this.field = field;
         }
 
-        public String getField() {return field;}
+        public String getField() {
+            return field;
+        }
 
         public String someMethodUsingField() {
             return field.replace("a", "b");
